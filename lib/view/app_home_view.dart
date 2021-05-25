@@ -6,13 +6,17 @@ import 'package:gratitude/widget/gratitude_widget.dart';
 class HomeView extends StatelessWidget {
   static const String title = APP_TITLE;
 
-  Future<DateTime?> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
+  Future<DateTime> _selectDate(BuildContext context) async {
+    DateTime? picked;
+    picked = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(2000),
       lastDate: DateTime(2025),
     );
+    if (picked == null) {
+      picked = DateTime.now();
+    }
     return picked;
   }
 
