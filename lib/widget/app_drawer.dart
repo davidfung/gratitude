@@ -34,7 +34,7 @@ class MainDrawer extends StatelessWidget {
           }),
           buildListTile("Export", Icons.import_export_outlined, () {
             Navigator.of(context).pop();
-            exportData();
+            export(context);
           }),
         ],
       ),

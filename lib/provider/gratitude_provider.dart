@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -60,6 +61,19 @@ class Gratitudes with ChangeNotifier {
     _dbDelete(_items[index].id!);
     _items.removeAt(index);
     notifyListeners();
+  }
+
+  String export() {
+    var content = "";
+    var buffer = "";
+
+    for (var item in items) {
+      buffer = DateFormat("EEEE, MMMM d, yyyy").format(item.cdate!) + '\n';
+      buffer += item.content ?? "";
+      content += buffer + '\n\n';
+    }
+
+    return content;
   }
 
   // --------------------------
