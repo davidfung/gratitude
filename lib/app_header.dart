@@ -55,7 +55,14 @@ const Map<int, Icon> GIconSet = {
   icon_portrait: Icon(Icons.portrait),
 };
 
-const String ROUTE_APP_ABOUT = "/about";
-const String ROUTE_APP_SETTING = "/setting";
-const String ROUTE_GRATITUDE_ADD = "/add";
-const String ROUTE_GRATITUDE_EDIT = "/edit";
+const String ROUTE_APP_ABOUT = '/about';
+const String ROUTE_APP_SETTING = '/setting';
+const String ROUTE_GRATITUDE_ADD = '/add';
+const String ROUTE_GRATITUDE_EDIT = '/edit';
+
+const String aboutUrl = 'https://amg99.com';
+
+const TextStyle captionStyle =
+    TextStyle(fontWeight: FontWeight.bold, fontSize: 18);
+const TextStyle bodyStyle = TextStyle(fontSize: 16);
+const TextStyle linkStyle = TextStyle(fontSize: 18, color: Colors.blue);
