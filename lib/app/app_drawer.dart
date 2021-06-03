@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gratitude/app/app_header.dart';
-import 'package:gratitude/util/export.dart';
+import 'package:gratitude/app/app_export.dart';
 import 'package:gratitude/app/app_about_view.dart';
 import 'package:gratitude/app/app_setting_view.dart';
 
