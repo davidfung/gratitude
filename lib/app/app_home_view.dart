@@ -18,7 +18,10 @@ class HomeView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           var picked = await selectDate(context);
-          Navigator.pushNamed(context, ROUTE_GRATITUDE_ADD, arguments: picked);
+          if (picked != null) {
+            Navigator.pushNamed(context, ROUTE_GRATITUDE_ADD,
+                arguments: picked);
+          }
         },
         tooltip: 'Add Gratitude',
         child: const Icon(Icons.add),
