@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 
-import '../app_header.dart';
-import '../utility.dart';
+import 'app_header.dart';
+import '../util/web.dart';
 
 class AboutView extends StatelessWidget {
   static const String title = 'About';

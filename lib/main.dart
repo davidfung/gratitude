@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gratitude/app_header.dart';
+import 'package:gratitude/app/app_header.dart';
 import 'package:gratitude/provider/gratitude_provider.dart';
-import 'package:gratitude/util/setting.dart';
+import 'package:gratitude/app/app_util.dart';
 import 'package:provider/provider.dart';
-import 'package:gratitude/route.dart';
+import 'package:gratitude/app/app_route.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

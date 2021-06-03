@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gratitude/app_header.dart';
-import 'package:gratitude/widget/app_drawer.dart';
+import 'package:gratitude/app/app_header.dart';
+import 'package:gratitude/app/app_drawer.dart';
 import 'package:gratitude/widget/gratitude_widget.dart';
 
 class HomeView extends StatelessWidget {

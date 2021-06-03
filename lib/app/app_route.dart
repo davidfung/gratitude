@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gratitude/app_header.dart';
-import 'package:gratitude/view/app_about_view.dart';
-import 'package:gratitude/view/app_home_view.dart';
-import 'package:gratitude/view/app_setting_view.dart';
+import 'package:gratitude/app/app_header.dart';
+import 'package:gratitude/app/app_about_view.dart';
+import 'package:gratitude/app/app_home_view.dart';
+import 'package:gratitude/app/app_setting_view.dart';
 import 'package:gratitude/view/gratitude_add_view.dart';
 import 'package:gratitude/view/gratitude_edit_view.dart';
 

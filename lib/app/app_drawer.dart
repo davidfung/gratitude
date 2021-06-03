@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gratitude/app_header.dart';
-import 'package:gratitude/export.dart';
-import 'package:gratitude/view/app_about_view.dart';
-import 'package:gratitude/view/app_setting_view.dart';
+import 'package:gratitude/app/app_header.dart';
+import 'package:gratitude/util/export.dart';
+import 'package:gratitude/app/app_about_view.dart';
+import 'package:gratitude/app/app_setting_view.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({
