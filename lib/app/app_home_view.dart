@@ -2,23 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gratitude/app/app_header.dart';
 import 'package:gratitude/app/app_drawer.dart';
 import 'package:gratitude/widget/gratitude_widget.dart';
+import 'package:gratitude/util/utility.dart';
 
 class HomeView extends StatelessWidget {
   static const String title = APP_TITLE;
-
-  Future<DateTime> _selectDate(BuildContext context) async {
-    DateTime? picked;
-    picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2025),
-    );
-    if (picked == null) {
-      picked = DateTime.now();
-    }
-    return picked;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +17,7 @@ class HomeView extends StatelessWidget {
       body: GratitudeListWidget(),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          var picked = await _selectDate(context);
+          var picked = await selectDate(context);
           Navigator.pushNamed(context, ROUTE_GRATITUDE_ADD, arguments: picked);
         },
         tooltip: 'Add Gratitude',
