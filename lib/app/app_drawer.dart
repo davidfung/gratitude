@@ -25,10 +25,10 @@ class MainDrawer extends StatelessWidget {
                 margin: EdgeInsets.all(0.0),
                 padding: EdgeInsets.all(0.0)),
           ),
-          buildListTile(AboutView.title, Icons.settings, () {
+          buildListTile(AboutView.title, Icons.info_outline, () {
             Navigator.of(context).popAndPushNamed(ROUTE_APP_ABOUT);
           }),
-          buildListTile(SettingView.title, Icons.info_outline, () {
+          buildListTile(SettingView.title, Icons.settings, () {
             Navigator.of(context).popAndPushNamed(ROUTE_APP_SETTING);
           }),
           buildListTile("Export", Icons.import_export_outlined, () {
