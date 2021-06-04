@@ -82,8 +82,10 @@ class Gratitudes with ChangeNotifier {
 
   Future<void> _dbOpen() async {
     int count = migrationScripts.length;
+    String path = join(await getDatabasesPath(), DB_NAME);
+    //print('db location: $path');
     db = await openDatabase(
-      join(await getDatabasesPath(), DB_NAME),
+      path,
       version: count,
       // if the database does not exist, onCreate executes all sql statements
       // in the "migrationScripts" map one by one in ascending order.
