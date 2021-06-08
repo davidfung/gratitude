@@ -21,6 +21,15 @@ Map<int, String> migrationScripts = {
     icon INTEGER
     )
   ''',
+  2: '''
+  ALTER TABLE gratitude ADD type INTEGER;
+  ''',
+  3: '''
+  ALTER TABLE gratitude ADD favorite INTEGER;
+  ''',
+  4: '''
+  ALTER TABLE gratitude ADD hashtag TEXT;
+  ''',
 };
 
 class Gratitudes with ChangeNotifier {
