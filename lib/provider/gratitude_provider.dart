@@ -56,13 +56,14 @@ class Gratitudes with ChangeNotifier {
     //// _items.add(task);
     _items.insert(0, gratitude);
     _dbInsert(gratitude);
+    _items.sort((a, b) => -a.cdate!.compareTo(b.cdate!));
     notifyListeners();
   }
 
   void editItem(int index, String content) {
     _items[index].content = content;
     _dbUpdate(_items[index]);
-    _items.insert(0, _items.removeAt(index));
+    // _items.insert(0, _items.removeAt(index));
     notifyListeners();
   }
 
