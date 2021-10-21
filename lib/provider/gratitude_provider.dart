@@ -119,7 +119,8 @@ class Gratitudes with ChangeNotifier {
   }
 
   Future<void> _dbLoad() async {
-    final List<Map<String, dynamic>> result = await db!.query(TABLE_NAME);
+    final List<Map<String, dynamic>> result =
+        await db!.query(TABLE_NAME, orderBy: "cdate desc");
     // Convert the List<Map<String, dynamic> into a List<Gratitude>.
     _items = List.generate(result.length, (i) {
       return Gratitude(
@@ -129,8 +130,6 @@ class Gratitudes with ChangeNotifier {
         icon: result[i]['icon'],
       );
     });
-    // Sort the item list by creation time descending
-    _items.sort((a, b) => -a.cdate!.compareTo(b.cdate!));
   }
 
   Future<void> _dbInsert(Gratitude gratitude) async {
