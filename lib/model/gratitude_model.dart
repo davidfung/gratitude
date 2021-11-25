@@ -11,7 +11,7 @@ class Gratitude {
       this.cdate = DateTime.now();
     }
     if (null == this.icon) {
-      this.icon = icon_default;
+      this.icon = getIcon();
     }
   }
 
@@ -22,5 +22,10 @@ class Gratitude {
       'content': content,
       'icon': icon,
     };
+  }
+
+  //TODO: add intelligence to this routine to return an icon relevant to the task.
+  int getIcon() {
+    return icon_assistant_photo;
   }
 }
