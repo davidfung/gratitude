@@ -47,6 +47,7 @@ class Gratitudes with ChangeNotifier {
 
   void loadItems() async {
     await _dbOpen();
+    await _setupTemplate();
     await _dbLoad();
     notifyListeners();
   }
@@ -155,5 +156,34 @@ class Gratitudes with ChangeNotifier {
       where: "id = ?",
       whereArgs: [id],
     );
+  }
+
+  // Create an empty entry for "today" if it does not exist, and
+  // remove all empty entries other than for today.
+  Future<void> _setupTemplate() async {
+    print("setupTemplate...");
+    late final Gratitude g;
+    final DateTime today;
+    final String sql;
+    late var count;
+
+    // remove all empty entries
+    count = await db!.delete(TABLE_NAME, where: "content = ?", whereArgs: [""]);
+    print("delete count = {$count}");
+
+    // check if today entry exists
+    today = DateTime.now();
+    final datestr = DateFormat("yyyy-MM-dd").format(today);
+    sql = "SELECT COUNT(*) FROM $TABLE_NAME where date(cdate)='$datestr'";
+    print("sql = $sql");
+    count = Sqflite.firstIntValue(await db!.rawQuery(sql));
+    print("today count = {$count}");
+
+    // create today entry if not exists
+    if (0 == count) {
+      print("Create today entry");
+      g = Gratitude(cdate: today, content: "");
+      this._dbInsert(g);
+    }
   }
 }
