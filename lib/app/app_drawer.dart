@@ -21,7 +21,8 @@ class MainDrawer extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     padding: EdgeInsets.only(left: 20),
                     child: Text(APP_TITLE, style: TextStyle(fontSize: 18))),
-                decoration: BoxDecoration(color: Theme.of(context).accentColor),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.secondary),
                 margin: EdgeInsets.all(0.0),
                 padding: EdgeInsets.all(0.0)),
           ),
