@@ -59,12 +59,24 @@ class GratitudeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Text subtitle;
+
+    if (this.body.isEmpty) {
+      subtitle = Text("What are you thankful for today?",
+          style: TextStyle(
+              fontSize: 14.0,
+              color: Colors.blueGrey,
+              fontStyle: FontStyle.italic));
+    } else {
+      subtitle =
+          Text(body, style: TextStyle(fontSize: 14.0, color: Colors.black));
+    }
+
     return ListTile(
       leading: icon,
       title: Text(title,
           style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
-      subtitle:
-          Text(body, style: TextStyle(fontSize: 14.0, color: Colors.black)),
+      subtitle: subtitle,
       onTap: () {
         Navigator.pushNamed(context, ROUTE_GRATITUDE_EDIT, arguments: index);
       },
