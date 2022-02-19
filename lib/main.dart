@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: APP_TITLE,
         theme: ThemeData(
-          primarySwatch: appColor,
+          primaryColor: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         initialRoute: '/',
