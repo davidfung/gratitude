@@ -50,7 +50,7 @@ class Gratitude {
   }
 
   //TODO: add intelligence to this routine to return an icon relevant to the
-  //the task description.
+  //the task description. (Right now it always return the push pin icon.)
   int getIcon() {
     return icon_push_pin;
   }
