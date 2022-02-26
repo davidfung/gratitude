@@ -54,7 +54,9 @@ class GratitudeWidget extends StatelessWidget {
       : title = DateFormat("EEEE, MMMM d, yyyy")
             .format(gratitudes.items[index].cdate!),
         body = gratitudes.items[index].content!,
-        icon = GIconSet[gratitudes.items[index].icon],
+        icon = gratitudes.items[index].favorite == 0
+            ? GIconSet[icon_favorite_outline]
+            : GIconSet[icon_favorite],
         index = index;
 
   @override
