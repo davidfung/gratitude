@@ -48,8 +48,6 @@ class GratitudeWidget extends StatelessWidget {
   final Icon? icon;
   final int index;
 
-  GratitudeWidget(this.title, this.body, this.icon, this.index);
-
   GratitudeWidget.fromItemIndex(Gratitudes gratitudes, int index)
       : title = DateFormat("EEEE, MMMM d, yyyy")
             .format(gratitudes.items[index].cdate!),
@@ -75,7 +73,7 @@ class GratitudeWidget extends StatelessWidget {
     }
 
     return ListTile(
-      leading: icon,
+      leading: IconButton(icon: icon!, onPressed: () {}),
       title: Text(title,
           style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
       subtitle: subtitle,
