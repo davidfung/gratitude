@@ -42,47 +42,39 @@ class _GratitudeListWidgetState extends State<GratitudeListWidget> {
   }
 }
 
-class GratitudeWidget extends StatefulWidget {
+class GratitudeWidget extends StatelessWidget {
   final String title;
   final String body;
   final int index;
-  int isFavorite;
 
   GratitudeWidget.fromItemIndex(Gratitudes gratitudes, int index)
       : title = DateFormat("EEEE, MMMM d, yyyy")
             .format(gratitudes.items[index].cdate!),
         body = gratitudes.items[index].content!,
-        isFavorite = gratitudes.items[index].favorite!,
         index = index;
 
-  @override
-  State<GratitudeWidget> createState() => _GratitudeWidgetState();
-}
-
-class _GratitudeWidgetState extends State<GratitudeWidget> {
-  @override
   Widget build(BuildContext context) {
     final Text subtitle;
 
-    if (this.widget.body.isEmpty) {
+    if (this.body.isEmpty) {
       subtitle = Text("What are you thankful for today?",
           style: TextStyle(
               fontSize: 14.0,
               color: Colors.blueGrey,
               fontStyle: FontStyle.italic));
     } else {
-      subtitle = Text(widget.body,
+      subtitle = Text(this.body,
           style: TextStyle(fontSize: 14.0, color: Colors.black));
     }
 
     return ListTile(
-      leading: FavIcon(widget: widget),
-      title: Text(widget.title,
+      leading: FavIcon(index: index),
+      title: Text(this.title,
           style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
       subtitle: subtitle,
       onTap: () {
         Navigator.pushNamed(context, ROUTE_GRATITUDE_EDIT,
-            arguments: widget.index);
+            arguments: this.index);
       },
     );
   }
@@ -90,13 +82,12 @@ class _GratitudeWidgetState extends State<GratitudeWidget> {
 
 class FavIcon extends StatefulWidget {
   FavIcon({
-    Key? key,
-    required widget,
+    required int index,
   }) {
-    this.widget = widget;
+    this.index = index;
   }
 
-  late final GratitudeWidget widget;
+  late final int index;
 
   @override
   State<FavIcon> createState() => _FavIconState();
@@ -107,17 +98,19 @@ class _FavIconState extends State<FavIcon> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.widget.isFavorite == 1) {
-      icon = Icon(Icons.favorite);
+    final Gratitudes g = Provider.of<Gratitudes>(context, listen: false);
+    if (g.items[widget.index].favorite == 1) {
+      icon = Icon(
+        Icons.favorite,
+        color: Colors.red,
+      );
     } else {
       icon = Icon(Icons.favorite_outline);
     }
     return IconButton(
         icon: icon,
         onPressed: () {
-          setState(() {
-            widget.widget.isFavorite = 1 - widget.widget.isFavorite;
-          });
+          g.toggleFavorite(widget.index);
         });
   }
 }

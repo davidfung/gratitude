@@ -11,6 +11,7 @@ const DB_NAME = "gratitude.db";
 const TABLE_NAME = "gratitude";
 
 // The key represents the version of the database.
+// Remember to update _dbLoad() when schema changes.
 // TODO only support one sql statement in each version?
 Map<int, String> migrationScripts = {
   1: '''
@@ -65,6 +66,12 @@ class Gratitudes with ChangeNotifier {
     _items[index].content = content;
     _dbUpdate(_items[index]);
     // _items.insert(0, _items.removeAt(index));
+    notifyListeners();
+  }
+
+  void toggleFavorite(int index) {
+    _items[index].favorite = 1 - _items[index].favorite!;
+    _dbUpdate(_items[index]);
     notifyListeners();
   }
 
@@ -129,6 +136,9 @@ class Gratitudes with ChangeNotifier {
         cdate: DateTime.parse(result[i]['cdate']),
         content: result[i]['content'] ?? "",
         icon: result[i]['icon'],
+        type: result[i]['type'],
+        favorite: result[i]['favorite'],
+        hashtag: result[i]['hashtag'] ?? "",
       );
     });
   }
@@ -161,7 +171,6 @@ class Gratitudes with ChangeNotifier {
   // Create an empty entry for "today" if it does not exist, and
   // remove all empty entries other than for today.
   Future<void> _setupTemplate() async {
-    print("setupTemplate...");
     late final Gratitude g;
     final DateTime today;
     final String sql;
@@ -169,19 +178,16 @@ class Gratitudes with ChangeNotifier {
 
     // remove all empty entries
     count = await db!.delete(TABLE_NAME, where: "content = ?", whereArgs: [""]);
-    print("delete count = {$count}");
 
     // check if today entry exists
     today = DateTime.now();
     final datestr = DateFormat("yyyy-MM-dd").format(today);
     sql = "SELECT COUNT(*) FROM $TABLE_NAME where date(cdate)='$datestr'";
-    print("sql = $sql");
+
     count = Sqflite.firstIntValue(await db!.rawQuery(sql));
-    print("today count = {$count}");
 
     // create today entry if not exists
     if (0 == count) {
-      print("Create today entry");
       g = Gratitude(cdate: today, content: "");
       this._dbInsert(g);
     }
