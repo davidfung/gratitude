@@ -42,10 +42,10 @@ class GratitudeEditView extends StatelessWidget {
     return IconButton(
       icon: Icon(Icons.check),
       onPressed: () {
+        final g = Provider.of<Gratitudes>(context, listen: false);
         _content = _teController.text;
         if (_content.length > 0) {
-          Provider.of<Gratitudes>(context, listen: false)
-              .editItem(index, _content.trim());
+          g.editItem(g.items[index].id!, _content.trim());
         }
         Navigator.pop(context);
       },

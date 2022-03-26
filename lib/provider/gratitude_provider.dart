@@ -64,9 +64,10 @@ class Gratitudes with ChangeNotifier {
     notifyListeners();
   }
 
-  void editItem(int index, String content) {
-    items[index].content = content;
-    _dbUpdate(items[index].id!);
+  void editItem(int id, String content) {
+    final Gratitude g = _items.firstWhere((e) => e.id == id);
+    g.content = content;
+    _dbUpdate(id);
     notifyListeners();
   }
 
