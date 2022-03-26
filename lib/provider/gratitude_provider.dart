@@ -82,8 +82,7 @@ class Gratitudes with ChangeNotifier {
     notifyListeners();
   }
 
-  void removeItem(int index) {
-    int id = items[index].id!;
+  void removeItem(int id) {
     _dbDelete(id);
     _items.removeWhere((element) => element.id == id);
     notifyListeners();
@@ -180,6 +179,7 @@ class Gratitudes with ChangeNotifier {
 
   // Create an empty entry for "today" if it does not exist, and
   // remove all empty entries other than for today.
+  // The template entry for today does not have an id yet.
   Future<void> _setupTemplate() async {
     late final Gratitude g;
     final DateTime today;

@@ -12,14 +12,14 @@ class GratitudeListWidget extends StatefulWidget {
 class _GratitudeListWidgetState extends State<GratitudeListWidget> {
   @override
   Widget build(BuildContext context) {
-    final gratitudes = Provider.of<Gratitudes>(context);
+    final g = Provider.of<Gratitudes>(context);
     return ListView.builder(
-      itemCount: gratitudes.items.length,
+      itemCount: g.items.length,
       itemBuilder: (context, index) {
         return Dismissible(
           key: UniqueKey(),
           onDismissed: (direction) {
-            gratitudes.removeItem(index);
+            g.removeItem(g.items[index].id!);
           },
           background: Container(
               alignment: AlignmentDirectional.centerStart,
@@ -28,7 +28,7 @@ class _GratitudeListWidgetState extends State<GratitudeListWidget> {
                 padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                 child: Icon(Icons.cancel, color: Colors.white),
               )),
-          child: GratitudeWidget.fromItemIndex(gratitudes, index),
+          child: GratitudeWidget.fromItemIndex(g, index),
           secondaryBackground: Container(
               alignment: AlignmentDirectional.centerEnd,
               color: Colors.red,
