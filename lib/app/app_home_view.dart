@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gratitude/app/app_header.dart';
 import 'package:gratitude/app/app_drawer.dart';
+import 'package:gratitude/provider/gratitude_provider.dart';
 import 'package:gratitude/widget/gratitude_widget.dart';
 import 'package:gratitude/util/utility.dart';
+import 'package:provider/provider.dart';
 
 class HomeView extends StatelessWidget {
   static const String title = APP_TITLE;
@@ -12,6 +15,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(title),
+        actions: [FilterIcon()],
       ),
       drawer: MainDrawer(),
       body: GratitudeListWidget(),
@@ -26,6 +30,35 @@ class HomeView extends StatelessWidget {
         tooltip: 'Add Gratitude',
         child: const Icon(Icons.add),
       ),
+    );
+  }
+}
+
+class FilterIcon extends StatefulWidget {
+  const FilterIcon({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<FilterIcon> createState() => _FilterIconState();
+}
+
+class _FilterIconState extends State<FilterIcon> {
+  bool filterOn = false;
+  @override
+  Widget build(BuildContext context) {
+    final Gratitudes g = Provider.of<Gratitudes>(context);
+    return IconButton(
+      iconSize: 20,
+      icon: filterOn
+          ? FaIcon(FontAwesomeIcons.filterCircleXmark)
+          : FaIcon(FontAwesomeIcons.filter),
+      onPressed: () {
+        setState(() {
+          filterOn = !filterOn;
+          g.setFilterOn(filterOn);
+        });
+      },
     );
   }
 }

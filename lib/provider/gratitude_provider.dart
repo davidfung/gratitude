@@ -36,6 +36,7 @@ Map<int, String> migrationScripts = {
 class Gratitudes with ChangeNotifier {
   List<Gratitude> _items = [];
   Database? db;
+  bool _filterOn = false;
 
   @override
   Gratitudes() {
@@ -43,7 +44,8 @@ class Gratitudes with ChangeNotifier {
   }
 
   List<Gratitude> get items {
-    return UnmodifiableListView<Gratitude>(_items);
+    return UnmodifiableListView<Gratitude>(
+        _filterOn ? _items.where((element) => element.favorite == 1) : _items);
   }
 
   void loadItems() async {
@@ -53,31 +55,37 @@ class Gratitudes with ChangeNotifier {
     notifyListeners();
   }
 
-  void addItem(Gratitude gratitude) {
-    //TODO: make it an option to add to top or bottom of list
-    //// _items.add(task);
-    _items.insert(0, gratitude);
-    _dbInsert(gratitude);
+  void addItem(Gratitude g) async {
+    int id;
+    _items.insert(0, g);
+    id = await _dbInsert(g);
+    g.id = id;
     _items.sort((a, b) => -a.cdate!.compareTo(b.cdate!));
     notifyListeners();
   }
 
   void editItem(int index, String content) {
-    _items[index].content = content;
-    _dbUpdate(_items[index]);
-    // _items.insert(0, _items.removeAt(index));
+    items[index].content = content;
+    _dbUpdate(items[index].id!);
     notifyListeners();
   }
 
-  void toggleFavorite(int index) {
-    _items[index].favorite = 1 - _items[index].favorite!;
-    _dbUpdate(_items[index]);
+  void toggleFavorite(int id) {
+    final Gratitude g = _items.firstWhere((e) => e.id == id);
+    g.favorite = (1 - g.favorite!);
+    _dbUpdate(g.id!);
+    notifyListeners();
+  }
+
+  void setFilterOn(bool filterOn) {
+    _filterOn = filterOn;
     notifyListeners();
   }
 
   void removeItem(int index) {
-    _dbDelete(_items[index].id!);
-    _items.removeAt(index);
+    int id = items[index].id!;
+    _dbDelete(id);
+    _items.removeWhere((element) => element.id == id);
     notifyListeners();
   }
 
@@ -143,20 +151,22 @@ class Gratitudes with ChangeNotifier {
     });
   }
 
-  Future<void> _dbInsert(Gratitude gratitude) async {
-    await db!.insert(
+  Future<int> _dbInsert(Gratitude gratitude) async {
+    final int id = await db!.insert(
       TABLE_NAME,
       gratitude.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+    return id;
   }
 
-  Future<void> _dbUpdate(Gratitude gratitude) async {
+  Future<void> _dbUpdate(int id) async {
+    final Gratitude g = _items.firstWhere((e) => e.id == id);
     await db!.update(
       TABLE_NAME,
-      gratitude.toMap(),
+      g.toMap(),
       where: "id = ?",
-      whereArgs: [gratitude.id],
+      whereArgs: [id],
     );
   }
 

@@ -98,7 +98,7 @@ class _FavIconState extends State<FavIcon> {
 
   @override
   Widget build(BuildContext context) {
-    final Gratitudes g = Provider.of<Gratitudes>(context, listen: false);
+    final Gratitudes g = Provider.of<Gratitudes>(context);
     if (g.items[widget.index].favorite == 1) {
       icon = Icon(
         Icons.favorite,
@@ -110,7 +110,7 @@ class _FavIconState extends State<FavIcon> {
     return IconButton(
         icon: icon,
         onPressed: () {
-          g.toggleFavorite(widget.index);
+          g.toggleFavorite(g.items[widget.index].id!);
         });
   }
 }
