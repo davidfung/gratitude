@@ -37,9 +37,11 @@ class Gratitudes with ChangeNotifier {
   List<Gratitude> _items = [];
   Database? db;
   bool _filterOn = false;
+  bool _testMode = false;
 
   @override
-  Gratitudes() {
+  Gratitudes({testMode = false}) {
+    _testMode = testMode;
     loadItems();
   }
 
@@ -108,7 +110,7 @@ class Gratitudes with ChangeNotifier {
 
   Future<void> _dbOpen() async {
     int count = migrationScripts.length;
-    String path = join(await getDatabasesPath(), DB_NAME);
+    String path = join(await getDatabasesPath(), _getDatabaseName());
     //print('db location: $path');
     db = await openDatabase(
       path,
@@ -202,5 +204,9 @@ class Gratitudes with ChangeNotifier {
       g = Gratitude(cdate: today, content: "");
       this._dbInsert(g);
     }
+  }
+
+  String _getDatabaseName() {
+    return DB_NAME;
   }
 }
