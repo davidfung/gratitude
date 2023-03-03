@@ -1,6 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.amg99.gratitude">
-   <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
    <application
         android:label="gratitude"
         android:icon="@mipmap/ic_launcher">
