@@ -15,7 +15,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(title),
-        actions: [FilterIcon()],
+        actions: [ContentIcon(), FilterIcon()],
       ),
       drawer: MainDrawer(),
       body: GratitudeListWidget(),
@@ -57,6 +57,35 @@ class _FilterIconState extends State<FilterIcon> {
         setState(() {
           filterOn = !filterOn;
           g.setFilterOn(filterOn);
+        });
+      },
+    );
+  }
+}
+
+class ContentIcon extends StatefulWidget {
+  const ContentIcon({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<ContentIcon> createState() => _ContentIconState();
+}
+
+class _ContentIconState extends State<ContentIcon> {
+  bool showContent = false;
+  @override
+  Widget build(BuildContext context) {
+    final Gratitudes g = Provider.of<Gratitudes>(context);
+    return IconButton(
+      iconSize: 20,
+      icon: showContent
+          ? FaIcon(FontAwesomeIcons.eye)
+          : FaIcon(FontAwesomeIcons.eyeSlash),
+      onPressed: () {
+        setState(() {
+          showContent = !showContent;
+          g.setShowContent(showContent);
         });
       },
     );

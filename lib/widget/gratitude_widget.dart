@@ -55,6 +55,8 @@ class GratitudeWidget extends StatelessWidget {
 
   Widget build(BuildContext context) {
     final Text subtitle;
+    final Gratitudes g = Provider.of<Gratitudes>(context);
+    bool showContent = g.getShowContent();
 
     if (this.body.isEmpty) {
       subtitle = Text("What are you thankful for today?",
@@ -71,7 +73,7 @@ class GratitudeWidget extends StatelessWidget {
       leading: FavIcon(index: index),
       title: Text(this.title,
           style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
-      subtitle: subtitle,
+      subtitle: showContent ? subtitle : null,
       onTap: () {
         Navigator.pushNamed(context, ROUTE_GRATITUDE_EDIT,
             arguments: this.index);

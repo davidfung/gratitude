@@ -37,6 +37,7 @@ class Gratitudes with ChangeNotifier {
   List<Gratitude> _items = [];
   Database? db;
   bool _filterOn = false;
+  bool _showContent = false;
   bool _testMode = false;
 
   @override
@@ -83,6 +84,15 @@ class Gratitudes with ChangeNotifier {
   void setFilterOn(bool filterOn) {
     _filterOn = filterOn;
     notifyListeners();
+  }
+
+  void setShowContent(bool show) {
+    _showContent = show;
+    notifyListeners();
+  }
+
+  bool getShowContent() {
+    return _showContent;
   }
 
   void removeItem(int id) {
